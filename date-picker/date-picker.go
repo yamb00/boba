@@ -62,6 +62,9 @@ type Model struct {
 	Styles          Styles
 	Title           string
 	KeyMap          KeyMap
+
+	height int
+	width  int
 }
 
 // New will return a new Model
@@ -93,6 +96,17 @@ func DefaultStyles() Styles {
 // View renders the date picker and returns a string
 func (m Model) View() string {
 	return m.renderHeader() + "\n" + m.renderBody()
+}
+
+// SetSize defines height and width of datepicker
+func (m *Model) SetSize(width, height int) {
+	m.width = width
+	m.height = height
+}
+
+// SetStyles defines styles of datepicker
+func (m *Model) SetStyles(s Styles) {
+	m.Styles = s
 }
 
 // renderEntry return a string of the entry rendered with the provided styles
@@ -141,7 +155,7 @@ func (m Model) renderBody() string {
 	return body
 }
 
-// getCurrentMonth retursn the active Month
+// getCurrentMonth return the active Month
 func (m *Model) getCurrentMonth() *Month {
 	return m.calendar[m.currentMonthKey]
 }
